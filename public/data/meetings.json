@@ -1,0 +1,83 @@
+[
+    {
+      "title": "Team Sync-Up",
+      "persons": ["Alice", "Bob", "Charlie"],
+      "agenda": "Weekly progress updates and roadblocks discussion",
+      "date": "2024-12-19",
+      "starttime": "10:00 AM",
+      "endtime": "11:00 AM"
+    },
+    {
+      "title": "Project Kick-Off",
+      "persons": ["David", "Eve", "Frank", "Grace"],
+      "agenda": "Introduction to the project and role assignment",
+      "date": "2024-12-20",
+      "starttime": "2:00 PM",
+      "endtime": "4:00 PM"
+    },
+    {
+      "title": "Design Review",
+      "persons": ["Hank", "Ivy", "Jack"],
+      "agenda": "Review of the initial design mockups",
+      "date": "2024-12-21",
+      "starttime": "11:00 AM",
+      "endtime": "12:30 PM"
+    },
+    {
+      "title": "Client Meeting",
+      "persons": ["Alice", "Bob", "Grace", "Eve"],
+      "agenda": "Discussion on project deliverables and timeline",
+      "date": "2024-12-22",
+      "starttime": "3:00 PM",
+      "endtime": "4:30 PM"
+    },
+    {
+      "title": "Sprint Planning",
+      "persons": ["Frank", "Charlie", "Hank", "Jack"],
+      "agenda": "Planning tasks for the upcoming sprint",
+      "date": "2024-12-23",
+      "starttime": "9:00 AM",
+      "endtime": "10:30 AM"
+    },
+    {
+      "title": "Code Review",
+      "persons": ["Ivy", "David", "Alice"],
+      "agenda": "Review recent code submissions and provide feedback",
+      "date": "2024-12-24",
+      "starttime": "1:00 PM",
+      "endtime": "2:30 PM"
+    },
+    {
+      "title": "Marketing Strategy",
+      "persons": ["Eve", "Grace", "Frank"],
+      "agenda": "Outline the marketing plan for the next quarter",
+      "date": "2024-12-25",
+      "starttime": "10:00 AM",
+      "endtime": "12:00 PM"
+    },
+    {
+      "title": "Quarterly Review",
+      "persons": ["Alice", "Bob", "Charlie", "David", "Ivy"],
+      "agenda": "Discuss performance metrics and key achievements",
+      "date": "2024-12-26",
+      "starttime": "2:00 PM",
+      "endtime": "5:00 PM"
+    },
+    {
+      "title": "Product Demo",
+      "persons": ["Grace", "Frank", "Jack", "Hank"],
+      "agenda": "Demonstrate the new product features to stakeholders",
+      "date": "2024-12-27",
+      "starttime": "11:30 AM",
+      "endtime": "1:00 PM"
+    },
+    {
+      "title": "Feedback Session",
+      "persons": ["Charlie", "David", "Eve", "Ivy"],
+      "agenda": "Gather feedback on recent developments",
+      "date": "2024-12-28",
+      "starttime": "4:00 PM",
+      "endtime": "5:30 PM"
+    }
+  ]
+  
