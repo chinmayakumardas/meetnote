@@ -4,69 +4,174 @@
     "title": "Weekly Report",
     "content": "Summary of weekly achievements and challenges.",
     "date": "2024-12-10",
-    "createdBy": "Amit Kumar"
+    "createdBy": "HR"
   },
   {
     "id": 2,
     "title": "Meeting Minutes",
     "content": "Key points discussed in the team meeting.",
     "date": "2024-12-11",
-    "createdBy": "Ravi Sharma"
+    "createdBy": "Chairman"
   },
   {
     "id": 3,
     "title": "Project Update",
     "content": "Current status of the ongoing project.",
     "date": "2024-12-12",
-    "createdBy": "Priya Gupta"
+    "createdBy": "MD"
   },
   {
     "id": 4,
     "title": "Research Notes",
     "content": "Findings from the recent market analysis.",
     "date": "2024-12-13",
-    "createdBy": "Vijay Singh"
+    "createdBy": "CPC"
   },
   {
     "id": 5,
     "title": "Event Plan",
     "content": "Details of the upcoming team-building event.",
     "date": "2024-12-14",
-    "createdBy": "Neha Patel"
+    "createdBy": "HR"
   },
   {
     "id": 6,
     "title": "Bug Report",
     "content": "List of issues identified during testing.",
     "date": "2024-12-15",
-    "createdBy": "Rajesh Yadav"
+    "createdBy": "Chairman"
   },
   {
     "id": 7,
     "title": "User Feedback",
     "content": "Summary of feedback received from end-users.",
     "date": "2024-12-16",
-    "createdBy": "Ayesha Khan"
+    "createdBy": "MD"
   },
   {
     "id": 8,
     "title": "Training Material",
     "content": "Presentation slides for the training session.",
     "date": "2024-12-17",
-    "createdBy": "Manoj Verma"
+    "createdBy": "CPC"
   },
   {
     "id": 9,
     "title": "Deployment Notes",
     "content": "Instructions and checklist for deployment.",
     "date": "2024-12-18",
-    "createdBy": "Sita Reddy"
+    "createdBy": "HR"
   },
   {
     "id": 10,
     "title": "Performance Review",
     "content": "Individual performance analysis for the quarter.",
     "date": "2024-12-19",
-    "createdBy": "Arun Mishra"
+    "createdBy": "Chairman"
+  },
+  {
+    "id": 11,
+    "title": "Project Milestone",
+    "content": "Overview of key milestones achieved in the project.",
+    "date": "2024-12-20",
+    "createdBy": "MD"
+  },
+  {
+    "id": 12,
+    "title": "Budget Proposal",
+    "content": "Details of the proposed budget for the next fiscal year.",
+    "date": "2024-12-21",
+    "createdBy": "CPC"
+  },
+  {
+    "id": 13,
+    "title": "Strategic Plan",
+    "content": "Long-term goals and strategies for the organization.",
+    "date": "2024-12-22",
+    "createdBy": "HR"
+  },
+  {
+    "id": 14,
+    "title": "Team Feedback",
+    "content": "Input from team members on improving work processes.",
+    "date": "2024-12-23",
+    "createdBy": "Chairman"
+  },
+  {
+    "id": 15,
+    "title": "Client Report",
+    "content": "Report summarizing feedback and concerns from clients.",
+    "date": "2024-12-24",
+    "createdBy": "MD"
+  },
+  {
+    "id": 16,
+    "title": "Security Audit",
+    "content": "Summary of the latest security audit findings.",
+    "date": "2024-12-25",
+    "createdBy": "CPC"
+  },
+  {
+    "id": 17,
+    "title": "Risk Assessment",
+    "content": "Evaluation of potential risks to the company’s operations.",
+    "date": "2024-12-26",
+    "createdBy": "HR"
+  },
+  {
+    "id": 18,
+    "title": "Annual Report",
+    "content": "Comprehensive report on company performance over the year.",
+    "date": "2024-12-27",
+    "createdBy": "Chairman"
+  },
+  {
+    "id": 19,
+    "title": "Sales Report",
+    "content": "Detailed analysis of sales performance in the last quarter.",
+    "date": "2024-12-28",
+    "createdBy": "MD"
+  },
+  {
+    "id": 20,
+    "title": "Product Roadmap",
+    "content": "Planned schedule for new product launches.",
+    "date": "2024-12-29",
+    "createdBy": "CPC"
+  },
+  {
+    "id": 21,
+    "title": "Employee Wellness Program",
+    "content": "Overview of wellness initiatives for employees.",
+    "date": "2024-12-30",
+    "createdBy": "HR"
+  },
+  {
+    "id": 22,
+    "title": "Market Expansion Plan",
+    "content": "Strategy for expanding into new markets.",
+    "date": "2024-12-31",
+    "createdBy": "Chairman"
+  },
+  {
+    "id": 23,
+    "title": "System Update",
+    "content": "Details of the upcoming system update and improvements.",
+    "date": "2025-01-01",
+    "createdBy": "MD"
+  },
+  {
+    "id": 24,
+    "title": "Vendor Review",
+    "content": "Evaluation of current vendor performance.",
+    "date": "2025-01-02",
+    "createdBy": "CPC"
+  },
+  {
+    "id": 25,
+    "title": "Workplace Safety Review",
+    "content": "Review of safety protocols and measures in the workplace.",
+    "date": "2025-01-03",
+    "createdBy": "HR"
   }
 ]

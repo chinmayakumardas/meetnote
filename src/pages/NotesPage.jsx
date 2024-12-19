@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NoteList from '../components/note/NoteList';
 import NoteGrid from '../components/note/NoteGrid';
-import { FiPlus, FiEdit, FiTrash2, FiSave, FiX } from 'react-icons/fi';
+import { FiPlus, FiSave, FiX } from 'react-icons/fi';
 
 const NotesPage = ({ isGridView }) => {
   const [notes, setNotes] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [newNote, setNewNote] = useState({ title: '', content: '', date: '', createdBy: '' });
   const [editingNote, setEditingNote] = useState(null);
-  const [errors, setErrors] = useState({}); // To track form validation errors
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     axios
@@ -27,8 +27,6 @@ const NotesPage = ({ isGridView }) => {
       ...prevNote,
       [name]: value,
     }));
-
-    // Clear errors for the field being edited
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: '',
@@ -40,7 +38,7 @@ const NotesPage = ({ isGridView }) => {
     if (!newNote.title.trim()) newErrors.title = 'Title is required';
     if (!newNote.content.trim()) newErrors.content = 'Content is required';
     if (!newNote.date.trim()) newErrors.date = 'Date is required';
-    if (!newNote.createdBy.trim()) newErrors.createdBy = 'Created By is required';
+    if (!newNote.createdBy.trim()) newErrors.createdBy = 'Person is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -94,7 +92,7 @@ const NotesPage = ({ isGridView }) => {
   const handleCancel = () => {
     setIsFormOpen(false);
     setEditingNote(null);
-    setNewNote({ title: '', content: '', date: '', createdBy: '' });
+    setNewNote({ title: '', content: '', date: '', persons: '' });
     setErrors({});
   };
 
@@ -102,14 +100,19 @@ const NotesPage = ({ isGridView }) => {
     if (isFormOpen) {
       handleCancel();
     } else {
-      setNewNote({ title: '', content: '', date: new Date().toISOString().split('T')[0], createdBy: '' });
+      setNewNote({
+        title: '',
+        content: '',
+        date: new Date().toISOString().split('T')[0],
+        createdBy: '',
+      });
       setIsFormOpen(true);
     }
   };
 
   return (
     <div>
-      <div className='flex justify-between mb-3'>
+      <div className="flex justify-between mb-3">
         <h1 className="text-xl font-bold">Take a Notes...</h1>
         <button
           onClick={toggleForm}
@@ -120,7 +123,7 @@ const NotesPage = ({ isGridView }) => {
       </div>
 
       {isFormOpen && (
-        <div className="p-4 border rounded shadow mb-4">
+        <div className="p-4 border rounded shadow mb-4 w-80 mx-auto">
           <h2 className="font-semibold">{editingNote ? 'Edit Note' : 'New Note'}</h2>
           <input
             type="text"
@@ -150,15 +153,19 @@ const NotesPage = ({ isGridView }) => {
           />
           {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
 
-          <input
-            type="text"
+          {/* Created By Dropdown */}
+          <select
             name="createdBy"
-            placeholder="Created By"
             value={newNote.createdBy}
             onChange={handleFormChange}
             className="w-full p-2 border rounded mb-2"
-          />
-          {errors.createdBy && <p className="text-red-500 text-sm">{errors.createdBy}</p>}
+          >
+            <option value="">Select person</option>
+            <option value="CPC">CPC</option>
+            <option value="Chairman">Chairman</option>
+            <option value="MD">MD</option>
+          </select>
+          {errors.persons && <p className="text-red-500 text-sm">{errors.persons}</p>}
 
           <div className="flex justify-end space-x-4">
             <button

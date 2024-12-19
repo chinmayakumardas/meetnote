@@ -1,92 +1,88 @@
+None selected 
+
+Skip to content
+Using Gmail with screen readers
+1 of 1
+fle
+Inbox
+
+Chinmaya Das <it_chinmaya@outlook.com>
+Attachments
+20:45 (2 hours ago)
+to me
+
+
+ 8 attachments
+  • Scanned by Gmail
 [
   {
-      "id": 1,
-      "title": "Team Sync-Up",
-      "persons": ["Alice", "Bob", "Charlie"],
-      "agenda": "Weekly progress updates and roadblocks discussion",
-      "date": "2024-12-19",
-      "starttime": "10:00 AM",
-      "endtime": "11:00 AM"
+    "id": 1,
+    "title": "Team Sync",
+    "agenda": "Discuss progress on current projects",
+    "datetime": "2024-12-19T10:00",
+    "persons": ["Chairman", "HR"]
   },
   {
-      "id": 2,
-      "title": "Project Kick-Off",
-      "persons": ["David", "Eve", "Frank", "Grace"],
-      "agenda": "Introduction to the project and role assignment",
-      "date": "2024-12-20",
-      "starttime": "2:00 PM",
-      "endtime": "4:00 PM"
+    "id": 2,
+    "title": "Client Meeting",
+    "agenda": "Review client requirements and timelines",
+    "datetime": "2024-12-20T14:30",
+    "persons": ["MD", "CPC"]
   },
   {
-      "id": 3,
-      "title": "Design Review",
-      "persons": ["Hank", "Ivy", "Jack"],
-      "agenda": "Review of the initial design mockups",
-      "date": "2024-12-21",
-      "starttime": "11:00 AM",
-      "endtime": "12:30 PM"
+    "id": 3,
+    "title": "Product Review",
+    "agenda": "Evaluate the new product features",
+    "datetime": "2024-12-21T09:30",
+    "persons": ["Chairman", "MD"]
   },
   {
-      "id": 4,
-      "title": "Client Meeting",
-      "persons": ["Alice", "Bob", "Grace", "Eve"],
-      "agenda": "Discussion on project deliverables and timeline",
-      "date": "2024-12-22",
-      "starttime": "3:00 PM",
-      "endtime": "4:30 PM"
+    "id": 4,
+    "title": "Strategy Session",
+    "agenda": "Plan for the next quarter's goals",
+    "datetime": "2024-12-22T11:00",
+    "persons": ["HR", "CPC"]
   },
   {
-      "id": 5,
-      "title": "Sprint Planning",
-      "persons": ["Frank", "Charlie", "Hank", "Jack"],
-      "agenda": "Planning tasks for the upcoming sprint",
-      "date": "2024-12-23",
-      "starttime": "9:00 AM",
-      "endtime": "10:30 AM"
+    "id": 5,
+    "title": "Budget Planning",
+    "agenda": "Finalize the department's budget for next year",
+    "datetime": "2024-12-23T13:00",
+    "persons": ["Chairman", "HR", "CPC"]
   },
   {
-      "id": 6,
-      "title": "Code Review",
-      "persons": ["Ivy", "David", "Alice"],
-      "agenda": "Review recent code submissions and provide feedback",
-      "date": "2024-12-24",
-      "starttime": "1:00 PM",
-      "endtime": "2:30 PM"
+    "id": 6,
+    "title": "Marketing Campaign",
+    "agenda": "Discuss the upcoming marketing strategy",
+    "datetime": "2024-12-24T15:30",
+    "persons": ["MD", "CPC"]
   },
   {
-      "id": 7,
-      "title": "Marketing Strategy",
-      "persons": ["Eve", "Grace", "Frank"],
-      "agenda": "Outline the marketing plan for the next quarter",
-      "date": "2024-12-25",
-      "starttime": "10:00 AM",
-      "endtime": "12:00 PM"
+    "id": 7,
+    "title": "Team Building",
+    "agenda": "Plan the next team-building event",
+    "datetime": "2024-12-25T16:00",
+    "persons": ["Chairman", "HR"]
   },
   {
-      "id": 8,
-      "title": "Quarterly Review",
-      "persons": ["Alice", "Bob", "Charlie", "David", "Ivy"],
-      "agenda": "Discuss performance metrics and key achievements",
-      "date": "2024-12-26",
-      "starttime": "2:00 PM",
-      "endtime": "5:00 PM"
+    "id": 8,
+    "title": "Client Presentation",
+    "agenda": "Prepare for the client pitch presentation",
+    "datetime": "2024-12-26T10:30",
+    "persons": ["MD", "CPC", "HR"]
   },
   {
-      "id": 9,
-      "title": "Product Demo",
-      "persons": ["Grace", "Frank", "Jack", "Hank"],
-      "agenda": "Demonstrate the new product features to stakeholders",
-      "date": "2024-12-27",
-      "starttime": "11:30 AM",
-      "endtime": "1:00 PM"
+    "id": 9,
+    "title": "Annual Review",
+    "agenda": "Review the company's yearly performance",
+    "datetime": "2024-12-27T14:00",
+    "persons": ["Chairman", "MD"]
   },
   {
-      "id": 10,
-      "title": "Feedback Session",
-      "persons": ["Charlie", "David", "Eve", "Ivy"],
-      "agenda": "Gather feedback on recent developments",
-      "date": "2024-12-28",
-      "starttime": "4:00 PM",
-      "endtime": "5:30 PM"
+    "id": 10,
+    "title": "Product Launch",
+    "agenda": "Discuss the product launch plan",
+    "datetime": "2024-12-28T09:00",
+    "persons": ["Chairman", "CPC"]
   }
 ]

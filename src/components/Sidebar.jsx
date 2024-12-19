@@ -35,7 +35,7 @@ const Sidebar = () => {
         {/* Links Section */}
         <ul className="space-y-4">
           {/* Dashboard Link */}
-          <li className="hover:bg-gray-100 p-2 rounded">
+          {/* <li className="hover:bg-gray-100 p-2 rounded">
             <NavLink
               to="/dashboard"
               className="flex items-center space-x-2"
@@ -44,7 +44,7 @@ const Sidebar = () => {
               <FiHome />
               <span>Dashboard</span>
             </NavLink>
-          </li>
+          </li> */}
 
           {/* Notes Link */}
           <li className="hover:bg-gray-100 p-2 rounded">
@@ -71,7 +71,7 @@ const Sidebar = () => {
           </li>
 
           {/* Bin Link */}
-          <li className="hover:bg-gray-100 p-2 rounded">
+          {/* <li className="hover:bg-gray-100 p-2 rounded">
             <NavLink
               to="/bin"
               className="flex items-center space-x-2"
@@ -80,7 +80,7 @@ const Sidebar = () => {
               <FiTrash />
               <span>Bin</span>
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>

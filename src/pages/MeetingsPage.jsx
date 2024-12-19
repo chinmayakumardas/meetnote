@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MeetingGrid from '../components/meeting/MeetingGrid';
 import MeetingList from '../components/meeting/MeetingList';
-import { FiPlus, FiEdit, FiTrash2, FiSave, FiX } from 'react-icons/fi';
+import { FiPlus, FiSave, FiX } from 'react-icons/fi';
 
 const MeetingsPage = ({ isGridView }) => {
   const [meetings, setMeetings] = useState([]);
@@ -10,134 +10,85 @@ const MeetingsPage = ({ isGridView }) => {
   const [newMeeting, setNewMeeting] = useState({
     title: '',
     agenda: '',
-    date: '',
-    starttime: '',
-    endtime: '',
+    datetime: '',
     persons: [],
   });
   const [editingMeeting, setEditingMeeting] = useState(null);
   const [errors, setErrors] = useState({});
 
-  // Fetch meetings from the mock API (JSONPlaceholder)
   useEffect(() => {
     axios
-      .get('./data/meetings.json')  // Use JSONPlaceholder posts as meetings
+      .get('./data/meetings.json')
       .then((response) => {
-        console.log('Meetings fetched:', response.data);
-        setMeetings(response.data);
+        if (Array.isArray(response.data)) {
+          setMeetings(response.data);
+        } else {
+          console.error('Unexpected data format:', response.data);
+          setMeetings([]);
+        }
       })
-      .catch((error) => console.error('Error fetching meetings:', error));
+      .catch((error) => {
+        console.error('Error fetching meetings:', error);
+        setMeetings([]); // Ensure the state is an empty array on error
+      });
   }, []);
-
-  // Handle form changes
+  
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setNewMeeting((prevMeeting) => ({
       ...prevMeeting,
-      [name]: value,
+      [name]: name === 'persons' ? value.split(',').map((person) => person.trim()) : value,
     }));
-
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: '',
-    }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   };
 
-  // Validate form before submission
   const validateForm = () => {
     const newErrors = {};
     if (!newMeeting.title.trim()) newErrors.title = 'Title is required';
     if (!newMeeting.agenda.trim()) newErrors.agenda = 'Agenda is required';
-    if (!newMeeting.date.trim()) newErrors.date = 'Date is required';
-    if (!newMeeting.starttime.trim()) newErrors.starttime = 'Start time is required';
-    if (!newMeeting.endtime.trim()) newErrors.endtime = 'End time is required';
+    if (!newMeeting.datetime.trim()) newErrors.datetime = 'Date and time are required';
     if (!newMeeting.persons.length) newErrors.persons = 'At least one participant is required';
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Save or update meeting (POST or PUT)
   const handleSave = () => {
     if (!validateForm()) return;
-
     if (editingMeeting) {
-      axios
-        .put(`https://jsonplaceholder.typicode.com/posts/${editingMeeting.id}`, {
-          ...newMeeting,
-          id: editingMeeting.id,  // Ensure the ID is included in the request
-        })
-        .then((response) => {
-          console.log('Meeting updated:', response.data);
-          setMeetings((prevMeetings) =>
-            prevMeetings.map((meeting) =>
-              meeting.id === editingMeeting.id ? { ...meeting, ...newMeeting } : meeting
-            )
-          );
-          setIsFormOpen(false);
-          setEditingMeeting(null);
-        })
-        .catch((error) => console.error('Error updating meeting:', error));
+      setMeetings((prevMeetings) =>
+        prevMeetings.map((meeting) =>
+          meeting.id === editingMeeting.id ? { ...meeting, ...newMeeting } : meeting
+        )
+      );
+      setEditingMeeting(null);
     } else {
-      axios
-        .post('https://jsonplaceholder.typicode.com/posts', newMeeting)
-        .then((response) => {
-          console.log('New meeting created:', response.data);
-          setMeetings((prevMeetings) => [...prevMeetings, response.data]);
-          setIsFormOpen(false);
-        })
-        .catch((error) => console.error('Error creating meeting:', error));
+      setMeetings((prevMeetings) => [
+        ...prevMeetings,
+        { ...newMeeting, id: Date.now() }, // Simulate unique ID
+      ]);
     }
+    setIsFormOpen(false);
+    resetForm();
   };
 
-  // Edit meeting
   const handleEdit = (meeting) => {
     setNewMeeting(meeting);
     setEditingMeeting(meeting);
     setIsFormOpen(true);
   };
 
-  // Delete meeting
   const handleDelete = (id) => {
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then(() => {
-        console.log('Meeting deleted');
-        setMeetings((prevMeetings) => prevMeetings.filter((meeting) => meeting.id !== id));
-      })
-      .catch((error) => console.error('Error deleting meeting:', error));
+    setMeetings((prevMeetings) => prevMeetings.filter((meeting) => meeting.id !== id));
   };
 
-  // Cancel editing or adding
-  const handleCancel = () => {
-    setIsFormOpen(false);
-    setEditingMeeting(null);
-    setNewMeeting({
-      title: '',
-      agenda: '',
-      date: '',
-      starttime: '',
-      endtime: '',
-      persons: [],
-    });
+  const resetForm = () => {
+    setNewMeeting({ title: '', agenda: '', datetime: '', persons: [] });
     setErrors({});
   };
 
-  // Toggle form visibility
   const toggleForm = () => {
-    if (isFormOpen) {
-      handleCancel();
-    } else {
-      setNewMeeting({
-        title: '',
-        agenda: '',
-        date: new Date().toISOString().split('T')[0],
-        starttime: '',
-        endtime: '',
-        persons: [],
-      });
-      setIsFormOpen(true);
-    }
+    if (isFormOpen) resetForm();
+    setIsFormOpen(!isFormOpen);
   };
 
   return (
@@ -175,38 +126,20 @@ const MeetingsPage = ({ isGridView }) => {
           {errors.agenda && <p className="text-red-500 text-sm">{errors.agenda}</p>}
 
           <input
-            type="date"
-            name="date"
-            value={newMeeting.date}
+            type="datetime-local"
+            name="datetime"
+            value={newMeeting.datetime}
             onChange={handleFormChange}
             className="w-full p-2 border rounded mb-2"
           />
-          {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
-
-          <input
-            type="time"
-            name="starttime"
-            value={newMeeting.starttime}
-            onChange={handleFormChange}
-            className="w-full p-2 border rounded mb-2"
-          />
-          {errors.starttime && <p className="text-red-500 text-sm">{errors.starttime}</p>}
-
-          <input
-            type="time"
-            name="endtime"
-            value={newMeeting.endtime}
-            onChange={handleFormChange}
-            className="w-full p-2 border rounded mb-2"
-          />
-          {errors.endtime && <p className="text-red-500 text-sm">{errors.endtime}</p>}
+          {errors.datetime && <p className="text-red-500 text-sm">{errors.datetime}</p>}
 
           <input
             type="text"
             name="persons"
             placeholder="Participants (comma separated)"
             value={newMeeting.persons.join(', ')}
-            onChange={(e) => handleFormChange({ target: { name: 'persons', value: e.target.value.split(',').map(str => str.trim()) } })}
+            onChange={handleFormChange}
             className="w-full p-2 border rounded mb-2"
           />
           {errors.persons && <p className="text-red-500 text-sm">{errors.persons}</p>}
@@ -219,7 +152,7 @@ const MeetingsPage = ({ isGridView }) => {
               <FiSave className="w-6 h-6" />
             </button>
             <button
-              onClick={handleCancel}
+              onClick={toggleForm}
               className="p-3 bg-gray-500 text-white rounded-full hover:bg-gray-600"
             >
               <FiX className="w-6 h-6" />
@@ -229,9 +162,9 @@ const MeetingsPage = ({ isGridView }) => {
       )}
 
       {isGridView ? (
-        <MeetingGrid meetings={meetings} onEdit={handleEdit} onDelete={handleDelete} />
+        <MeetingGrid meetings={meetings} onSchedule={handleEdit} onDelete={handleDelete} />
       ) : (
-        <MeetingList meetings={meetings} onEdit={handleEdit} onDelete={handleDelete} />
+        <MeetingList meetings={meetings} onSchedule={handleEdit} onDelete={handleDelete} />
       )}
     </div>
   );
