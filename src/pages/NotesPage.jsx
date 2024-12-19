@@ -92,7 +92,7 @@ const NotesPage = ({ isGridView }) => {
   const handleCancel = () => {
     setIsFormOpen(false);
     setEditingNote(null);
-    setNewNote({ title: '', content: '', date: '', persons: '' });
+    setNewNote({ title: '', content: '', date: '', createdBy: '' });
     setErrors({});
   };
 
@@ -165,7 +165,7 @@ const NotesPage = ({ isGridView }) => {
             <option value="Chairman">Chairman</option>
             <option value="MD">MD</option>
           </select>
-          {errors.persons && <p className="text-red-500 text-sm">{errors.persons}</p>}
+          {errors.createdBy && <p className="text-red-500 text-sm">{errors.createdBy}</p>}
 
           <div className="flex justify-end space-x-4">
             <button
