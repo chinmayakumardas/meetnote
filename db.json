@@ -1,0 +1,87 @@
+{
+  "meetings": [
+    {
+      "id": "3e7b",
+      "title": "Hiring Meet",
+      "agenda": "hiring",
+      "datetime": "2024-12-20T23:25",
+      "persons": [
+        "Chairman",
+        "CPC",
+        "HR"
+      ]
+    },
+    {
+      "id": "21ef",
+      "title": "Onboarding meet with all",
+      "agenda": "onboarding",
+      "datetime": "2024-12-20T23:25",
+      "persons": [
+        "MD",
+        "HR",
+        "Chairman",
+        "CPC"
+      ]
+    },
+    {
+      "id": "00d7",
+      "title": "Food and travel meet",
+      "agenda": "fooding ",
+      "datetime": "2024-12-20T00:34",
+      "persons": [
+        "MD",
+        "HR"
+      ]
+    },
+    {
+      "id": "1e9c",
+      "title": "sanjay stall marketing",
+      "agenda": "stall",
+      "datetime": "2024-12-20T01:23",
+      "persons": [
+        "HR"
+      ]
+    },
+    {
+      "id": "5c25",
+      "title": "Welcome meet by hr",
+      "agenda": "ok",
+      "datetime": "2024-12-28T22:33",
+      "persons": [
+        "HR",
+        "CPC"
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "id": 1734714123980,
+      "title": "book cab",
+      "content": "cab",
+      "date": "2024-12-21",
+      "person": "Chairman"
+    },
+    {
+      "id": 1734714140356,
+      "title": "Part meeting",
+      "content": "ok",
+      "date": "2024-12-28",
+      "person": "Chairman"
+    },
+    {
+      "id": 1734714439773,
+      "title": "eddw",
+      "content": "edde",
+      "date": "2024-12-20",
+      "person": "Chairman"
+    },
+    {
+      "id": 1734714611515,
+      "title": "welcome",
+      "content": "hello",
+      "date": "2024-12-20",
+      "createdBy": "",
+      "person": "CPC"
+    }
+  ]
+}

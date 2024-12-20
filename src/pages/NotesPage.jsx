@@ -7,13 +7,13 @@ import { FiPlus, FiSave, FiX } from 'react-icons/fi';
 const NotesPage = ({ isGridView }) => {
   const [notes, setNotes] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [newNote, setNewNote] = useState({ title: '', content: '', date: '', createdBy: '' });
+  const [newNote, setNewNote] = useState({ title: '', content: '', date: '', person: '' });
   const [editingNote, setEditingNote] = useState(null);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     axios
-      .get('/data/notes.json')
+      .get('http://localhost:3000/notes')
       .then((response) => {
         console.log('Fetched notes:', response.data);
         setNotes(response.data);
@@ -38,7 +38,7 @@ const NotesPage = ({ isGridView }) => {
     if (!newNote.title.trim()) newErrors.title = 'Title is required';
     if (!newNote.content.trim()) newErrors.content = 'Content is required';
     if (!newNote.date.trim()) newErrors.date = 'Date is required';
-    if (!newNote.createdBy.trim()) newErrors.createdBy = 'Person is required';
+    if (!newNote.person.trim()) newErrors.person = 'Person is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -49,7 +49,7 @@ const NotesPage = ({ isGridView }) => {
 
     if (editingNote) {
       axios
-        .put(`https://jsonplaceholder.typicode.com/posts/${editingNote.id}`, newNote)
+        .put(`http://localhost:3000/notes/${editingNote.id}`, newNote)
         .then((response) => {
           console.log('Note updated:', response.data);
           setNotes((prevNotes) =>
@@ -63,7 +63,7 @@ const NotesPage = ({ isGridView }) => {
         .catch((error) => console.error('Error updating note:', error));
     } else {
       axios
-        .post('https://jsonplaceholder.typicode.com/posts', { ...newNote, id: Date.now() })
+        .post('http://localhost:3000/notes', { ...newNote, id: Date.now() })
         .then((response) => {
           console.log('Note created:', response.data);
           setNotes((prevNotes) => [...prevNotes, response.data]);
@@ -81,7 +81,7 @@ const NotesPage = ({ isGridView }) => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .delete(`http://localhost:3000/notes/${id}`)
       .then(() => {
         console.log('Note deleted:', id);
         setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
@@ -92,7 +92,7 @@ const NotesPage = ({ isGridView }) => {
   const handleCancel = () => {
     setIsFormOpen(false);
     setEditingNote(null);
-    setNewNote({ title: '', content: '', date: '', createdBy: '' });
+    setNewNote({ title: '', content: '', date: '', person: '' });
     setErrors({});
   };
 
@@ -155,8 +155,8 @@ const NotesPage = ({ isGridView }) => {
 
           {/* Created By Dropdown */}
           <select
-            name="createdBy"
-            value={newNote.createdBy}
+            name="person"
+            value={newNote.person}
             onChange={handleFormChange}
             className="w-full p-2 border rounded mb-2"
           >
@@ -165,7 +165,7 @@ const NotesPage = ({ isGridView }) => {
             <option value="Chairman">Chairman</option>
             <option value="MD">MD</option>
           </select>
-          {errors.createdBy && <p className="text-red-500 text-sm">{errors.createdBy}</p>}
+          {errors.person && <p className="text-red-500 text-sm">{errors.person}</p>}
 
           <div className="flex justify-end space-x-4">
             <button

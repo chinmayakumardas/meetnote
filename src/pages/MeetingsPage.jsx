@@ -18,7 +18,7 @@ const MeetingsPage = ({ isGridView }) => {
 
   useEffect(() => {
     axios
-      .get('./data/meetings.json') // Change with your real API URL
+      .get('http://localhost:3000/meetings') // Change with your real API URL
       .then((response) => {
         console.log('Meetings fetched:', response.data);
         setMeetings(response.data);
@@ -57,7 +57,7 @@ const MeetingsPage = ({ isGridView }) => {
 
     if (editingMeeting) {
       axios
-        .put(`https://jsonplaceholder.typicode.com/posts/${editingMeeting.id}`, {
+        .put(`http://localhost:3000/meetings/${editingMeeting.id}`, {
           ...newMeeting,
           id: editingMeeting.id,
         })
@@ -75,7 +75,7 @@ const MeetingsPage = ({ isGridView }) => {
     } 
     else {
       axios
-        .post('https://jsonplaceholder.typicode.com/posts', newMeeting)
+        .post('http://localhost:3000/meetings', newMeeting)
         .then((response) => {
           console.log('New meeting created:', response.data);
           setMeetings((prevMeetings) => [...prevMeetings, response.data]);
@@ -95,7 +95,7 @@ const MeetingsPage = ({ isGridView }) => {
   // Delete meeting
   const handleDelete = (id) => {
     axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .delete(`http://localhost:3000/meetings/${id}`)
       .then(() => {
         console.log('Meeting deleted');
         setMeetings((prevMeetings) => prevMeetings.filter((meeting) => meeting.id !== id));
