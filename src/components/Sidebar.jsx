@@ -71,7 +71,7 @@ const Sidebar = () => {
           </li>
 
           {/* Bin Link */}
-          {/* <li className="hover:bg-gray-100 p-2 rounded">
+          <li className="hover:bg-gray-100 p-2 rounded">
             <NavLink
               to="/bin"
               className="flex items-center space-x-2"
@@ -80,7 +80,7 @@ const Sidebar = () => {
               <FiTrash />
               <span>Bin</span>
             </NavLink>
-          </li> */}
+          </li>
         </ul>
       </nav>
     </div>

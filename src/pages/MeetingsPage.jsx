@@ -10,23 +10,22 @@ const MeetingsPage = ({ isGridView }) => {
   const [newMeeting, setNewMeeting] = useState({
     title: '',
     agenda: '',
-    datetime: '',
+    meetingdatetime: '',
     persons: [],
   });
   const [editingMeeting, setEditingMeeting] = useState(null);
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/meetings') // Change with your real API URL
+      .get('http://localhost:3000/meetings')
       .then((response) => {
-        console.log('Meetings fetched:', response.data);
         setMeetings(response.data);
       })
       .catch((error) => console.error('Error fetching meetings:', error));
   }, []);
 
-  // Handle form changes
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setNewMeeting((prevMeeting) => ({
@@ -39,19 +38,17 @@ const MeetingsPage = ({ isGridView }) => {
     }));
   };
 
-  // Validate form before submission
   const validateForm = () => {
     const newErrors = {};
     if (!newMeeting.title.trim()) newErrors.title = 'Title is required';
     if (!newMeeting.agenda.trim()) newErrors.agenda = 'Agenda is required';
-    if (!newMeeting.datetime.trim()) newErrors.datetime = 'Date and Time are required';
+    if (!newMeeting.meetingdatetime.trim()) newErrors.meetingdatetime = 'Date and Time are required';
     if (!newMeeting.persons.length) newErrors.persons = 'At least one participant is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Save or update meeting (POST or PUT)
   const handleSave = () => {
     if (!validateForm()) return;
 
@@ -62,7 +59,6 @@ const MeetingsPage = ({ isGridView }) => {
           id: editingMeeting.id,
         })
         .then((response) => {
-          console.log('Meeting updated:', response.data);
           setMeetings((prevMeetings) =>
             prevMeetings.map((meeting) =>
               meeting.id === editingMeeting.id ? { ...meeting, ...newMeeting } : meeting
@@ -70,53 +66,65 @@ const MeetingsPage = ({ isGridView }) => {
           );
           setIsFormOpen(false);
           setEditingMeeting(null);
+          setSuccessMessage('Meeting updated successfully!');
+          setTimeout(() => setSuccessMessage(''), 3000);
         })
-        .catch((error) => console.error('Error updating meeting:', error));
-    } 
-    else {
+        .catch((error) => {
+          setSuccessMessage('Failed to update meeting');
+          setTimeout(() => setSuccessMessage(''), 3000);
+        });
+    } else {
       axios
         .post('http://localhost:3000/meetings', newMeeting)
         .then((response) => {
-          console.log('New meeting created:', response.data);
           setMeetings((prevMeetings) => [...prevMeetings, response.data]);
           setIsFormOpen(false);
+          setSuccessMessage('Meeting created successfully!');
+          setTimeout(() => setSuccessMessage(''), 3000);
         })
-        .catch((error) => console.error('Error creating meeting:', error));
+        .catch((error) => {
+          setSuccessMessage('Failed to create meeting');
+          setTimeout(() => setSuccessMessage(''), 3000);
+        });
     }
   };
 
-  // Edit meeting
   const handleEdit = (meeting) => {
-    setNewMeeting({ ...meeting, datetime: `${meeting.date}T${meeting.starttime}` });
+    const formattedDateTime = new Date(meeting.meetingdatetime).toISOString().slice(0, 16);
+    setNewMeeting({
+      ...meeting,
+      meetingdatetime: formattedDateTime,
+    });
     setEditingMeeting(meeting);
     setIsFormOpen(true);
   };
 
-  // Delete meeting
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:3000/meetings/${id}`)
       .then(() => {
-        console.log('Meeting deleted');
         setMeetings((prevMeetings) => prevMeetings.filter((meeting) => meeting.id !== id));
+        setSuccessMessage('Meeting deleted successfully!');
+        setTimeout(() => setSuccessMessage(''), 3000);
       })
-      .catch((error) => console.error('Error deleting meeting:', error));
+      .catch((error) => {
+        setSuccessMessage('Failed to delete meeting');
+        setTimeout(() => setSuccessMessage(''), 3000);
+      });
   };
 
-  // Cancel editing or adding
   const handleCancel = () => {
     setIsFormOpen(false);
     setEditingMeeting(null);
     setNewMeeting({
       title: '',
       agenda: '',
-      datetime: '',
+      meetingdatetime: '',
       persons: [],
     });
     setErrors({});
   };
 
-  // Toggle form visibility
   const toggleForm = () => {
     if (isFormOpen) {
       handleCancel();
@@ -124,14 +132,13 @@ const MeetingsPage = ({ isGridView }) => {
       setNewMeeting({
         title: '',
         agenda: '',
-        datetime: '',
+        meetingdatetime: '',
         persons: [],
       });
       setIsFormOpen(true);
     }
   };
 
-  // Handle checkbox change for participants
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
     setNewMeeting((prevMeeting) => {
@@ -153,90 +160,107 @@ const MeetingsPage = ({ isGridView }) => {
           <FiPlus className="w-6 h-6" />
         </button>
       </div>
+      {successMessage && (
+  <div className="p-3 mb-4 text-green-500 bg-green-100 rounded inline-block">
+    {successMessage}
+  </div>
+)}
 
+
+      {/* Modal for form */}
       {isFormOpen && (
-        <div className="p-4 border rounded shadow mb-4 w-80 mx-auto">
-          <h2 className="font-semibold">{editingMeeting ? 'Edit Meeting' : 'New Meeting'}</h2>
-          <input
-            type="text"
-            name="title"
-            placeholder="Meeting Title"
-            value={newMeeting.title}
-            onChange={handleFormChange}
-            className="w-full p-2 border rounded mb-2"
-          />
-          {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded shadow-lg w-full max-w-md">
+            <h2 className="font-semibold">{editingMeeting ? 'Edit Meeting' : 'New Meeting'}</h2>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={newMeeting.title}
+              onChange={handleFormChange}
+              className="w-full p-2 border rounded mb-2"
+            />
+            {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+            <textarea
+              name="agenda"
+              placeholder="Agenda"
+              value={newMeeting.agenda}
+              onChange={handleFormChange}
+              className="w-full p-2 border rounded mb-2"
+            />
+            {errors.agenda && <p className="text-red-500 text-sm">{errors.agenda}</p>}
+            <input
+              type="datetime-local"
+              name="meetingdatetime"
+              value={newMeeting.meetingdatetime}
+              onChange={handleFormChange}
+              className="w-full p-2 border rounded mb-2"
+            />
+            {errors.meetingdatetime && <p className="text-red-500 text-sm">{errors.meetingdatetime}</p>}
 
-          <textarea
-            name="agenda"
-            placeholder="Agenda"
-            value={newMeeting.agenda}
-            onChange={handleFormChange}
-            className="w-full p-2 border rounded mb-2"
-          />
-          {errors.agenda && <p className="text-red-500 text-sm">{errors.agenda}</p>}
-
-          <input
-            type="datetime-local"
-            name="datetime"
-            value={newMeeting.datetime}
-            onChange={handleFormChange}
-            className="w-full p-2 border rounded mb-2"
-          />
-          {errors.datetime && <p className="text-red-500 text-sm">{errors.datetime}</p>}
-
-          {/* Participant checkboxes */}
-          <div className="mb-4">
-            <label className="font-semibold">Participants</label>
-            <div className="grid grid-cols-2 gap-2">
-              {['Chairman', 'MD', 'CPC', 'HR'].map((role) => (
-                <div key={role} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id={role}
-                    value={role}
-                    checked={newMeeting.persons.includes(role)}
-                    onChange={handleCheckboxChange}
-                    className="mr-2"
-                  />
-                  <label htmlFor={role} className="text-sm">{role}</label>
-                </div>
-              ))}
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <p>Participent's : </p><br />
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  value="HR"
+                  checked={newMeeting.persons.includes('HR')}
+                  onChange={handleCheckboxChange}
+                />
+                <span>HR</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  value="cpc"
+                  checked={newMeeting.persons.includes('cpc')}
+                  onChange={handleCheckboxChange}
+                />
+                <span>CPC</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  value="md"
+                  checked={newMeeting.persons.includes('md')}
+                  onChange={handleCheckboxChange}
+                />
+                <span>MD</span>
+              </label>
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  value="chairman"
+                  checked={newMeeting.persons.includes('chairman')}
+                  onChange={handleCheckboxChange}
+                />
+                <span>Chairman</span>
+              </label>
             </div>
             {errors.persons && <p className="text-red-500 text-sm">{errors.persons}</p>}
-          </div>
 
-          <div className="flex justify-end space-x-4">
-            <button
-              onClick={handleSave}
-              className="p-3 bg-green-500 text-white rounded-full hover:bg-green-600"
-            >
-              <FiSave className="w-6 h-6" />
-            </button>
-            <button
-              onClick={handleCancel}
-              className="p-3 bg-gray-500 text-white rounded-full hover:bg-gray-600"
-            >
-              <FiX className="w-6 h-6" />
-            </button>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={handleSave}
+                className="p-3 bg-green-500 text-white rounded-full hover:bg-green-600"
+              >
+                <FiSave className="w-6 h-6" />
+              </button>
+              <button
+                onClick={handleCancel}
+                className="p-3 bg-gray-500 text-white rounded-full hover:bg-gray-600"
+              >
+                <FiX className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       {isGridView ? (
-        <MeetingGrid
-          meetings={meetings}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          onSchedule={handleEdit}  // Schedule should trigger the edit functionality
-        />
+        <MeetingGrid meetings={meetings} onEdit={handleEdit} onDelete={handleDelete} />
       ) : (
-        <MeetingList
-          meetings={meetings}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          onSchedule={handleEdit}  // Schedule should trigger the edit functionality
-        />
+        <MeetingList meetings={meetings} onEdit={handleEdit} onDelete={handleDelete} />
       )}
     </div>
   );

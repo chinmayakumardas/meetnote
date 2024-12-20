@@ -12,6 +12,7 @@ const App = () => {
 
   return (
     <div>
+    
       {/* Removed Header here, as it will now be rendered inside Layout */}
       <GlobalRoutes isGridView={isGridView} handleViewToggle={handleViewToggle} />
     </div>
